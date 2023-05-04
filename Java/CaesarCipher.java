@@ -1,5 +1,6 @@
 public class CaesarCipher{
 private String ALPHABET = " ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+private LanguageDetector languageDetector = new LanguageDetector();
 
 public String encrypt(String plainText, int key){
 	String cipherText="";
@@ -16,18 +17,21 @@ public String encrypt(String plainText, int key){
 }
 
 
-public String decrypt(String cipherText, int key){
-	String plainText="";
-	//cipherText=cipherText.toUpperCase();
-	
-	for (int i=0;i<cipherText.length();i++){
-		char character = cipherText.charAt(i);
-		int charIndex = ALPHABET.indexOf(character);
-		int decryptedIndex = (charIndex-key) % ALPHABET.length();
-		plainText+=ALPHABET.charAt(decryptedIndex);	
-		
+public String decrypt(String cipherText){	
+	for(int key = 0; key<ALPHABET.length();key++){
+			String plainText="";	
+		for (int i=0;i<cipherText.length();i++){
+			char character = cipherText.charAt(i);
+			int charIndex = ALPHABET.indexOf(character);
+			int decryptedIndex = Math.floorMod((charIndex-key), ALPHABET.length());
+			plainText+=ALPHABET.charAt(decryptedIndex);			
+		}
+		if(languageDetector.isEnglish(plainText)){
+			return plainText;
+		}		
 	}
-	return plainText;
+	return null;
+	
 }
 
 

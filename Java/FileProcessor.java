@@ -24,8 +24,7 @@ public class FileProcessor{
 
 		String line ="";
 		while((line=bufferedReader.readLine())!=null){
-			words.add(line.toUpperCase());
-			System.out.println(line);
+			words.add(line.toUpperCase());			
 		}
 		fileReader.close();
 		bufferedReader.close();
